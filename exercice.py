@@ -46,7 +46,10 @@ def bills(value):
 def format_base(value, base, digit_letters):
     # Formater un nombre dans une base donné en utilisant les lettres fournies pour les chiffres<
     # `digits_letters[0]` Nous donne la lettre pour le chiffre 0, ainsi de suite.
-    result = ""
+    if base > len(digit_letters):
+        raise Exception(f"Not enough digit letters given! Expected at least {base} letters, got {len(digit_letters)}.")
+
+    """result = ""
     abs_value = abs(value)
     last_exp = 0
     while abs_value != 0:
@@ -70,6 +73,21 @@ def format_base(value, base, digit_letters):
     if value < 0:
         # TODO: Ne pas oublier d'ajouter '-' devant pour les nombres négatifs.
         result = "-"+result
+    """
+    # OR
+    result = ""
+    abs_value = abs(value)
+    while abs_value != 0:
+        val = abs_value % base
+        result += digit_letters[val]
+        abs_value //= base
+
+    if value < 0:
+        # TODO: Ne pas oublier d'ajouter '-' devant pour les nombres négatifs.
+        result += "-"
+
+    result = result[::-1]
+
     return result
 
 
